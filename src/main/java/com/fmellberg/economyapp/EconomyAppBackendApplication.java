@@ -10,4 +10,9 @@ public class EconomyAppBackendApplication {
         SpringApplication.run(EconomyAppBackendApplication.class, args);
     }
 
+    /*TODO
+     * Validation of input server-side
+     * Unit tests for CRUD-operations Savings goals
+     * Unit tests for CRUD-operations Users
+     */
 }

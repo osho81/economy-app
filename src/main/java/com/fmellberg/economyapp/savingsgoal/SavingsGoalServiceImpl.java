@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,29 +27,44 @@ public class SavingsGoalServiceImpl implements SavingsGoalService {
 
     public SavingsGoalDTO createSavingsGoal(SavingsGoalDTO savingsGoalDTO) {
         Optional<User> user = userRepository.findById(savingsGoalDTO.getUserId());
-        SavingsGoal savingsGoal = SavingsGoalMapper.toEntity(savingsGoalDTO, user.get());
-        SavingsGoal createdSavingsGoal = savingsGoalRepository.save(savingsGoal);
-        logger.info("Savings goal created: {}", createdSavingsGoal);
-        return SavingsGoalMapper.toDTO(createdSavingsGoal);
+        if (user.isPresent()) {
+            User existingUser = user.get();
+
+            SavingsGoal savingsGoal = SavingsGoalMapper.toEntity(savingsGoalDTO, existingUser);
+            SavingsGoal createdSavingsGoal = savingsGoalRepository.save(savingsGoal);
+            logger.info("Savings goal created: {}", createdSavingsGoal);
+            return SavingsGoalMapper.toDTO(createdSavingsGoal);
+        } else {
+            logger.error("User not found for creating savings goal");
+            throw new ResourceNotFoundException("User", "id", savingsGoalDTO.getUserId());
+        }
     }
+
 
     public List<SavingsGoalDTO> getAllSavingsGoals() {
         List<SavingsGoal> savingsGoals = savingsGoalRepository.findAll();
         logger.info("Total savings goals found: {}", savingsGoals.size());
-        List<SavingsGoalDTO> savingsGoalDTOs = SavingsGoalMapper.toDTOList(savingsGoals);
+
+        List<SavingsGoalDTO> savingsGoalDTOs = new ArrayList<>();
+        for (SavingsGoal savingsGoal : savingsGoals) {
+            SavingsGoalDTO savingsGoalDTO = SavingsGoalMapper.toDTO(savingsGoal);
+            savingsGoalDTOs.add(savingsGoalDTO);
+        }
         return savingsGoalDTOs;
     }
 
     public SavingsGoalDTO getSavingsGoalById(int id) {
-        Optional<SavingsGoal> savingsGoal = savingsGoalRepository.findById(id);
-        if (savingsGoal.isPresent()) {
-            SavingsGoalDTO savingsGoalDTO = SavingsGoalMapper.toDTO(savingsGoal.get());
-            return savingsGoalDTO;
+        Optional<SavingsGoal> savingsGoalOptional = savingsGoalRepository.findById(id);
+
+        if (savingsGoalOptional.isPresent()) {
+            SavingsGoal savingsGoal = savingsGoalOptional.get();
+            return SavingsGoalMapper.toDTO(savingsGoal);
         } else {
             logger.error("Savings goal not found with ID: {}", id);
             throw new ResourceNotFoundException("SavingsGoal", "id", id);
         }
     }
+
 
     public SavingsGoalDTO updateSavingsGoal(SavingsGoalDTO savingsGoalDTO) {
         Optional<SavingsGoal> existingSavingsGoalOptional = savingsGoalRepository.findById(savingsGoalDTO.getId());

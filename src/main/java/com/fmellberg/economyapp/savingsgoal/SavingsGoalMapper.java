@@ -30,13 +30,4 @@ public class SavingsGoalMapper {
         savingsGoal.setUser(user);
         return savingsGoal;
     }
-
-    public static List<SavingsGoalDTO> toDTOList(List<SavingsGoal> savingsGoalList) {
-        List<SavingsGoalDTO> dtoList = new ArrayList<>();
-        for (SavingsGoal savingsGoal : savingsGoalList) {
-            SavingsGoalDTO dto = toDTO(savingsGoal);
-            dtoList.add(dto);
-        }
-        return dtoList;
-    }
 }

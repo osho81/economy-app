@@ -1,5 +1,6 @@
 package com.fmellberg.economyapp.user;
 
+import com.fmellberg.economyapp.user.DTO.UserDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,31 +26,35 @@ public class UserController {
     @PostMapping
     public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO userDTO) {
         logger.info("Received a request to create a user: {}", userDTO);
-        return new ResponseEntity<UserDTO>(userService.createUser(userDTO), HttpStatus.CREATED);
+        UserDTO createdUser = userService.createUser(userDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);
     }
 
     @GetMapping
     public ResponseEntity<List<UserDTO>> getAllUsers() {
         logger.info("Received a request to retrieve all users");
-        return new ResponseEntity<List<UserDTO>>(userService.getAllUsers(), HttpStatus.OK);
+        List<UserDTO> users = userService.getAllUsers();
+        return ResponseEntity.ok(users);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<UserDTO> getUserById(@PathVariable int id) {
         logger.info("Received a request to retrieve user by ID: {}", id);
-        return new ResponseEntity<UserDTO>(userService.getUserById(id), HttpStatus.OK);
+        UserDTO user = userService.getUserById(id);
+        return ResponseEntity.ok(user);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<UserDTO> updateUser(@RequestBody UserDTO userDTO) {
         logger.info("Received a request to update user with ID: {}", userDTO.getId());
-        return new ResponseEntity<UserDTO>(userService.updateUser(userDTO), HttpStatus.OK);
+        UserDTO updatedUser = userService.updateUser(userDTO);
+        return ResponseEntity.ok(updatedUser);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable int id) {
         logger.info("Received a request to delete user with ID: {}", id);
         userService.deleteUser(id);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 }

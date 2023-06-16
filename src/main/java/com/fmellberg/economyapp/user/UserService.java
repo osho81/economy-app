@@ -1,7 +1,8 @@
 package com.fmellberg.economyapp.user;
 
+import com.fmellberg.economyapp.user.DTO.UserDTO;
+
 import java.util.List;
-import java.util.Optional;
 
 public interface UserService {
 

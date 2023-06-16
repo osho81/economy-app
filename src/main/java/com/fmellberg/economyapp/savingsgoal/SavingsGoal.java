@@ -4,11 +4,14 @@ import com.fmellberg.economyapp.user.User;
 import jakarta.persistence.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 import java.sql.Timestamp;
 import java.util.Date;
 
 @Entity
-@Table(name = "savinggoals")
+@Table(name = "savings_goals")
+@EntityListeners(AuditingEntityListener.class)
 public class SavingsGoal {
 
     @Id
@@ -31,16 +34,16 @@ public class SavingsGoal {
     private Date endDate;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "userid", nullable = false)
     private User user;
 
     @CreatedDate
-    @Column(name = "created_at", nullable = false)
+    @Column(name = "createdat")
     private Timestamp createdAt;
 
     @LastModifiedDate
-    @Column(name = "updated_at", nullable = false)
-    private Timestamp updatedAt;
+    @Column(name = "last_modified")
+    private Timestamp lastModified;
 
     public SavingsGoal() {
     }
@@ -109,12 +112,12 @@ public class SavingsGoal {
         this.createdAt = createdAt;
     }
 
-    public Timestamp getUpdatedAt() {
-        return updatedAt;
+    public Timestamp getLastModified() {
+        return lastModified;
     }
 
-    public void setUpdatedAt(Timestamp updatedAt) {
-        this.updatedAt = updatedAt;
+    public void setLastModified(Timestamp lastModified) {
+        this.lastModified = lastModified;
     }
 
     @Override
@@ -128,7 +131,7 @@ public class SavingsGoal {
                 ", endDate=" + endDate +
                 ", user=" + user +
                 ", createdAt=" + createdAt +
-                ", updatedAt=" + updatedAt +
+                ", updatedAt=" + lastModified +
                 '}';
     }
 }

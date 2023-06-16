@@ -1,11 +1,13 @@
 package com.fmellberg.economyapp.user;
 
 import com.fmellberg.economyapp.exception.ResourceNotFoundException;
+import com.fmellberg.economyapp.user.DTO.UserDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,20 +26,25 @@ public class UserServiceImpl implements UserService {
         User user = UserMapper.toEntity(userDTO);
         User createdUser = userRepository.save(user);
         logger.info("User created: {}", createdUser);
-        return UserMapper.toDTO(createdUser);
+        return UserMapper.toUserDTO(createdUser);
     }
 
     public List<UserDTO> getAllUsers() {
         List<User> users = userRepository.findAll();
         logger.info("Total users found: {}", users.size());
-        List<UserDTO> userDTOs = UserMapper.toDTOList(users);
+
+        List<UserDTO> userDTOs  = new ArrayList<>();
+        for(User user : users) {
+            UserDTO userDTO = UserMapper.toUserDTO(user);
+            userDTOs.add(userDTO);
+        }
         return userDTOs;
     }
 
     public UserDTO getUserById(int id) {
         Optional<User> user = userRepository.findById(id);
         if (user.isPresent()) {
-            UserDTO userDTO = UserMapper.toDTO(user.get());
+            UserDTO userDTO = UserMapper.toUserDTO(user.get());
             return userDTO;
         } else {
             logger.error("User not found with ID: {}", id);
@@ -58,7 +65,7 @@ public class UserServiceImpl implements UserService {
             User updatedUser = userRepository.save(existingUser);
             logger.info("User updated: {}", updatedUser);
 
-            return UserMapper.toDTO(updatedUser);
+            return UserMapper.toUserDTO(updatedUser);
         } else {
             logger.error("User not found with ID: {}", userDTO.getId());
             throw new ResourceNotFoundException("User","id", userDTO.getId());

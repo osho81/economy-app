@@ -4,21 +4,23 @@ import com.fmellberg.economyapp.savingsgoal.SavingsGoal;
 import jakarta.persistence.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.sql.Timestamp;
 import java.util.List;
 
 @Entity
 @Table(name = "users")
+@EntityListeners(AuditingEntityListener.class)
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
-    @Column(name = "firstname", nullable = false)
+    @Column(name = "first_name", nullable = false)
     private String firstName;
-    @Column(name = "lastname", nullable = false)
+    @Column(name = "last_name", nullable = false)
     private String lastName;
     @Column(name = "email", nullable = false, unique = true)
     private String email;
@@ -33,10 +35,28 @@ public class User {
     @Column(name = "created_at")
     private Timestamp createdAt;
     @LastModifiedDate
-    @Column(name = "last_Modified")
+    @Column(name = "last_modified")
     private Timestamp lastModified;
 
     public User() {
+    }
+
+    public User(int id, String firstName, String lastName, String email, String userName, String password) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.userName = userName;
+        this.password = password;
+    }
+
+    public User(String firstName, String lastName, String email, String userName, String password) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.userName = userName;
+        this.password = password;
+        this.savingGoals = savingGoals;
     }
 
     public int getId() {

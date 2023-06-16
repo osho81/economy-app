@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("api/v1/saving-goals")
@@ -26,7 +25,6 @@ public class SavingsGoalController {
     public ResponseEntity<SavingsGoalDTO> createSavingsGoal(@RequestBody SavingsGoalDTO savingsGoalDTO) {
         logger.info("Received request to create a new savings goal: {}", savingsGoalDTO);
         SavingsGoalDTO createdSavingsGoal = savingsGoalService.createSavingsGoal(savingsGoalDTO);
-        logger.info("New savings goal created: {}", createdSavingsGoal);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdSavingsGoal);
     }
 
@@ -34,7 +32,6 @@ public class SavingsGoalController {
     public ResponseEntity<List<SavingsGoalDTO>> getAllSavingsGoals() {
         logger.info("Received request to retrieve all savings goals");
         List<SavingsGoalDTO> savingsGoalDTOs = savingsGoalService.getAllSavingsGoals();
-        logger.info("Total savings goals retrieved: {}", savingsGoalDTOs.size());
         return ResponseEntity.ok(savingsGoalDTOs);
     }
 
@@ -42,13 +39,7 @@ public class SavingsGoalController {
     public ResponseEntity<SavingsGoalDTO> getSavingsGoalById(@PathVariable int id) {
         logger.info("Received request to retrieve savings goal with ID: {}", id);
         SavingsGoalDTO savingsGoalDTO = savingsGoalService.getSavingsGoalById(id);
-        if (savingsGoalDTO != null) {
-            logger.info("Savings goal found: {}", savingsGoalDTO);
-            return ResponseEntity.ok(savingsGoalDTO);
-        } else {
-            logger.info("Savings goal not found with ID: {}", id);
-            return ResponseEntity.notFound().build();
-        }
+        return ResponseEntity.ok(savingsGoalDTO);
     }
 
     @PutMapping("/{id}")
@@ -56,20 +47,13 @@ public class SavingsGoalController {
         logger.info("Received request to update savings goal with ID: {}", id);
         savingsGoalDTO.setId(id);
         SavingsGoalDTO updatedSavingsGoal = savingsGoalService.updateSavingsGoal(savingsGoalDTO);
-        if (updatedSavingsGoal != null) {
-            logger.info("Savings goal updated: {}", updatedSavingsGoal);
-            return ResponseEntity.ok(updatedSavingsGoal);
-        } else {
-            logger.info("Savings goal not found with ID: {}", id);
-            return ResponseEntity.notFound().build();
-        }
+        return ResponseEntity.ok(updatedSavingsGoal);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteSavingsGoal(@PathVariable int id) {
         logger.info("Received request to delete savings goal with ID: {}", id);
         savingsGoalService.deleteSavingsGoal(id);
-        logger.info("Savings goal deleted with ID: {}", id);
         return ResponseEntity.noContent().build();
     }
 }
