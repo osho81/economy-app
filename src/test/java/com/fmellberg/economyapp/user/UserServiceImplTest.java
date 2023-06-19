@@ -30,7 +30,7 @@ public class UserServiceImplTest {
     }
 
     @Test
-    public void testCreateUser() {
+    public void createUser_ShouldReturnCreatedUserDTO() {
         // Prepare test data
         UserDTO userDTO = new UserDTO(1,"John", "Doe", "john@example.com", "johndoe", "password");
         User createdUser = new User(1, "John", "Doe", "john@example.com", "johndoe", "password");
@@ -49,7 +49,7 @@ public class UserServiceImplTest {
     }
 
     @Test
-    public void testGetAllUsers() {
+    public void getAllUsers_ShouldReturnListOfUserDTOs() {
         // Prepare test data
         List<User> users = new ArrayList<>();
         users.add(new User(1, "John", "Doe", "john@example.com", "johndoe", "password"));
@@ -71,7 +71,7 @@ public class UserServiceImplTest {
     }
 
     @Test
-    public void testGetUserById() {
+    public void getUserById_ShouldReturnUserDTO() {
         // Prepare test data
         int userId = 1;
         User user = new User(userId, "John", "Doe", "john@example.com", "johndoe", "password");
@@ -91,7 +91,7 @@ public class UserServiceImplTest {
     }
 
     @Test
-    public void testGetUserById_UserNotFound() {
+    public void getUserById_UserNotFound_ShouldThrowResourceNotFoundException() {
         // Prepare test data
         int userId = 1;
 
@@ -106,7 +106,7 @@ public class UserServiceImplTest {
     }
 
     @Test
-    public void testUpdateUser() {
+    public void updateUser_ShouldReturnUpdatedUserDTO() {
         // Prepare test data
         UserDTO userDTO = new UserDTO(1, "John", "Doe", "john@example.com", "johndoe", "password");
         User existingUser = new User(1, "Existing", "User", "existing@example.com", "existinguser", "password");
@@ -130,7 +130,7 @@ public class UserServiceImplTest {
     }
 
     @Test
-    public void testUpdateUser_UserNotFound() {
+    public void updateUser_UserNotFound_ShouldThrowResourceNotFoundException() {
         // Prepare test data
         UserDTO userDTO = new UserDTO(1, "John", "Doe", "john@example.com", "johndoe", "password");
 
@@ -145,7 +145,7 @@ public class UserServiceImplTest {
     }
 
     @Test
-    public void testDeleteUser() {
+    public void deleteUser_ShouldDeleteUser()  {
         // Prepare test data
         int userId = 1;
         User existingUser = new User(userId, "John", "Doe", "john@example.com", "johndoe", "password");
@@ -164,7 +164,7 @@ public class UserServiceImplTest {
     }
 
     @Test
-    public void testDeleteUser_UserNotFound() {
+    public void deleteUser_UserNotFound_ShouldThrowResourceNotFoundException() {
         // Prepare test data
         int userId = 1;
 

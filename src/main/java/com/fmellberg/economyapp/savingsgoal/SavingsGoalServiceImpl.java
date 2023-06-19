@@ -31,6 +31,7 @@ public class SavingsGoalServiceImpl implements SavingsGoalService {
             User existingUser = user.get();
 
             SavingsGoal savingsGoal = SavingsGoalMapper.toEntity(savingsGoalDTO, existingUser);
+            logger.debug("Creating Savings goal: {}", savingsGoal);
             SavingsGoal createdSavingsGoal = savingsGoalRepository.save(savingsGoal);
             logger.info("Savings goal created: {}", createdSavingsGoal);
             return SavingsGoalMapper.toDTO(createdSavingsGoal);
@@ -77,6 +78,7 @@ public class SavingsGoalServiceImpl implements SavingsGoalService {
             existingSavingsGoal.setStartDate(savingsGoalDTO.getStartDate());
             existingSavingsGoal.setEndDate(savingsGoalDTO.getEndDate());
 
+            logger.debug("Updating Savings goal: {}", existingSavingsGoal);
             SavingsGoal updatedSavingsGoal = savingsGoalRepository.save(existingSavingsGoal);
             logger.info("Savings goal updated: {}", updatedSavingsGoal);
 
@@ -90,6 +92,7 @@ public class SavingsGoalServiceImpl implements SavingsGoalService {
     public void deleteSavingsGoal(int id) {
         Optional<SavingsGoal> existingSavingsGoal = savingsGoalRepository.findById(id);
         if (existingSavingsGoal.isPresent()) {
+            logger.debug("Deleting Savings goal: {}", existingSavingsGoal.get());
             savingsGoalRepository.deleteById(id);
             logger.info("Savings goal with ID {} deleted", id);
         } else {

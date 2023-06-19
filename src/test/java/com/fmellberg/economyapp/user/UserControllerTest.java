@@ -31,7 +31,7 @@ class UserControllerTest {
     }
 
     @Test
-    public void testCreateUser() {
+    public void createUser_ShouldReturnCreatedUserAndResponseCREATED() {
         // Prepare test data
         int id = 1;
         String firstName = "John";
@@ -61,7 +61,7 @@ class UserControllerTest {
 
 
     @Test
-    void getAllUsers() {
+    void getAllUsers_ShouldReturnListOfUsersAndResponseOK() {
         // Prepare test data
         UserDTO user1 = new UserDTO(1, "John", "Doe", "john@example.com", "johndoe", "password");
         UserDTO user2 = new UserDTO(2, "Jane", "Smith", "jane@example.com", "janesmith", "password");
@@ -82,7 +82,7 @@ class UserControllerTest {
     }
 
     @Test
-    void getUserById() {
+    void getUserById_ShouldReturnUserAndResponseOK() {
         // Prepare test data
         int userId = 1;
         UserDTO expectedUser = new UserDTO(userId, "John", "Doe", "john@example.com", "johndoe", "password");
@@ -102,7 +102,7 @@ class UserControllerTest {
     }
 
     @Test
-    void updateUser() {
+    void updateUser_ShouldReturnUpdatedUserAndResponseOK() {
         // Prepare test data
         int userId = 1;
         UserDTO userDTO = new UserDTO(userId, "John", "Doe", "john@example.com", "johndoe", "password");
@@ -123,7 +123,7 @@ class UserControllerTest {
     }
 
     @Test
-    void deleteUser() {
+    void deleteUser_ShouldReturnResponseNoContent() {
         // Prepare test data
         int userId = 1;
 

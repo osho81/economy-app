@@ -24,6 +24,7 @@ public class UserServiceImpl implements UserService {
 
     public UserDTO createUser(UserDTO userDTO) {
         User user = UserMapper.toEntity(userDTO);
+        logger.debug("Creating user: {}", user);
         User createdUser = userRepository.save(user);
         logger.info("User created: {}", createdUser);
         return UserMapper.toUserDTO(createdUser);
@@ -62,6 +63,7 @@ public class UserServiceImpl implements UserService {
             existingUser.setEmail(userDTO.getEmail());
             existingUser.setUserName(userDTO.getUserName());
 
+            logger.debug("Updating user: {}", existingUser);
             User updatedUser = userRepository.save(existingUser);
             logger.info("User updated: {}", updatedUser);
 
@@ -75,6 +77,7 @@ public class UserServiceImpl implements UserService {
     public void deleteUser(int id) {
         Optional<User> existingUser = userRepository.findById(id);
         if (existingUser.isPresent()) {
+            logger.debug("Deleting user: {}", existingUser.get());
             userRepository.deleteById(id);
             logger.info("User with ID {} deleted", id);
         } else {

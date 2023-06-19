@@ -3,6 +3,7 @@ package com.fmellberg.economyapp.savingsgoal;
 import com.fmellberg.economyapp.user.User;
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class SavingsGoalDTO {
@@ -11,11 +12,21 @@ public class SavingsGoalDTO {
     private String goalName;
     private double currentAmountOfCash;
     private double targetAmountOfCash;
-    private Date startDate;
-    private Date endDate;
+    private LocalDate startDate;
+    private LocalDate endDate;
     private int userId;
 
     public SavingsGoalDTO() {
+    }
+
+    public SavingsGoalDTO(int id, String goalName, double currentAmountOfCash, double targetAmountOfCash, LocalDate startDate, LocalDate endDate, int userId) {
+        this.id = id;
+        this.goalName = goalName;
+        this.currentAmountOfCash = currentAmountOfCash;
+        this.targetAmountOfCash = targetAmountOfCash;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.userId = userId;
     }
 
     public int getId() {
@@ -50,19 +61,19 @@ public class SavingsGoalDTO {
         this.targetAmountOfCash = targetAmountOfCash;
     }
 
-    public Date getStartDate() {
+    public LocalDate getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
 
-    public Date getEndDate() {
+    public LocalDate getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
 
