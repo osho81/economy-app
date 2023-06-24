@@ -25,7 +25,7 @@ public class TaxInformationController {
     @GetMapping()
     public ResponseEntity<List<TaxInformationDTOResponse>> getTaxInformation() {
         // Returns a DTO list, extracted in the process of the http service method
-        List<TaxInformationDTOResponse> response = taxInformationService.getTaxInformation();
+        List<TaxInformationDTOResponse> response = taxInformationService.getTaxInformation(0); // No paras in url
         if (response != null) {
             return ResponseEntity.ok(response);
         } else {
@@ -37,7 +37,8 @@ public class TaxInformationController {
     @GetMapping("/year/{year}")
     public ResponseEntity<List<TaxInformationDTOResponse>> getTaxInfoSpecificYear(@PathVariable int year) {
         List<TaxInformationDTOResponse> taxInfoSpecificYear = new ArrayList<>();
-        List<TaxInformationDTOResponse> response = taxInformationService.getTaxInformation();
+//        List<TaxInformationDTOResponse> response = taxInformationService.getTaxInformation();
+        List<TaxInformationDTOResponse> response = taxInformationService.getTaxInformation(year); // has para year
 
         System.out.println(year);
         System.out.println(response.size());
