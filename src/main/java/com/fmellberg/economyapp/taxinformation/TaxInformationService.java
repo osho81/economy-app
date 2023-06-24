@@ -20,6 +20,7 @@ public class TaxInformationService {
     public List<TaxInformationDTOResponse> getTaxInformation() {
         String apiURL = environment.getProperty("skatteverketAPI.url");
 
+//        ResponseEntity<TaxInformationAPIResponse> responseEntity = restTemplate.exchange(apiURL, HttpMethod.GET, null, TaxInformationAPIResponse.class);
         ResponseEntity<TaxInformationAPIResponse> responseEntity = restTemplate.exchange(apiURL, HttpMethod.GET, null, TaxInformationAPIResponse.class);
 
         if (responseEntity.getStatusCode().is2xxSuccessful()) {
@@ -31,4 +32,6 @@ public class TaxInformationService {
 
         return null;
     }
+
+    //
 }

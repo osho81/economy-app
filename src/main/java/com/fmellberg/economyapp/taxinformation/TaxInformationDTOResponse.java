@@ -2,6 +2,8 @@ package com.fmellberg.economyapp.taxinformation;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+// Structure for data to be returned as response, to calling party (browser, postman etc)
+
 public class TaxInformationDTOResponse {
 
     @JsonProperty("kyrkoavgift")
