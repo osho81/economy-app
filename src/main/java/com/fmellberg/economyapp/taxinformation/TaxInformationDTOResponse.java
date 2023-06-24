@@ -2,11 +2,13 @@ package com.fmellberg.economyapp.taxinformation;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-// Structure for data to be returned as response, to calling party (browser, postman etc)
+// Structure for data to be used by TaxInformation APIResponse
+// See & compare the equivalent field names in the response as explained here:
+// https://skatteverket.entryscape.net/rowstore/dataset/c67b320b-ffee-4876-b073-dd9236cd2a99/swagger
 
 public class TaxInformationDTOResponse {
 
-    @JsonProperty("kyrkoavgift")
+    @JsonProperty("kyrkoavgift") // Properties extracted from "results", from http request
     private double churchFee;
     @JsonProperty("summa, inkl. kyrkoavgift")
     private double totalTaxAmountIncludingChurchFee;
