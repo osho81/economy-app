@@ -22,8 +22,8 @@ public class TaxInformationService {
 
     public List<TaxInformationDTOResponse> getTaxInformation(int year) { // Modified 230624
         String apiURL = environment.getProperty("skatteverketAPI.url"); // If base url is set in appl.prop
-        String urlParas = (year == 0) ? "": "?år=" + year; // if year is sent from controller, add this query para
-
+        String urlParas = (year == 0) ? "": ("?år=" + year); // if year is sent from controller, add this query para
+        // Use UrlComponentsBuilder etc if multiple paras; this is a solution for practise only
 
         // Http request using (deprecated) RestTemplate http tool, in this case the exchange method
         // DTO extracts json properties, via TaxInformationAPIResponse.class
