@@ -130,7 +130,7 @@ public class SavingsGoal {
                 ", targetAmountOfCash=" + targetAmountOfCash +
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +
-                ", user=" + user +
+//                ", user=" + user +
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + lastModified +
                 '}';

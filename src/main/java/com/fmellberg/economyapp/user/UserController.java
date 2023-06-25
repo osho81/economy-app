@@ -44,8 +44,8 @@ public class UserController {
         return ResponseEntity.ok(user);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<UserDTO> updateUser(@RequestBody UserDTO userDTO) {
+    @PutMapping() // Removed redundant path var {id} 230625
+    public ResponseEntity<UserDTO> updateUser(@RequestBody UserDTO userDTO) { // Uses req body
         logger.info("Received a request to update user with ID: {}", userDTO.getId());
         UserDTO updatedUser = userService.updateUser(userDTO);
         return ResponseEntity.ok(updatedUser);

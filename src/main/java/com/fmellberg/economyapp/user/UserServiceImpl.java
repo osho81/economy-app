@@ -23,9 +23,9 @@ public class UserServiceImpl implements UserService {
     }
 
     public UserDTO createUser(UserDTO userDTO) {
-        User user = UserMapper.toEntity(userDTO);
+        User user = UserMapper.toEntity(userDTO); // Transform DTO-user into model-user
         logger.debug("Creating user: {}", user);
-        User createdUser = userRepository.save(user); // Create User
+        User createdUser = userRepository.save(user); // Save created User
         logger.info("User created: {}", createdUser);
         return UserMapper.toUserDTO(createdUser); // Return UserDTO in response
     }
@@ -55,6 +55,7 @@ public class UserServiceImpl implements UserService {
     }
 
     public UserDTO updateUser(UserDTO userDTO) {
+        // Get User, and update by passed in UserDTO fields
         Optional<User> existingUserOptional = userRepository.findById(userDTO.getId());
         if (existingUserOptional.isPresent()) {
             User existingUser = existingUserOptional.get();
@@ -65,10 +66,10 @@ public class UserServiceImpl implements UserService {
             existingUser.setUserName(userDTO.getUserName());
 
             logger.debug("Updating user: {}", existingUser);
-            User updatedUser = userRepository.save(existingUser);
+            User updatedUser = userRepository.save(existingUser); // save updated user
             logger.info("User updated: {}", updatedUser);
 
-            return UserMapper.toUserDTO(updatedUser);
+            return UserMapper.toUserDTO(updatedUser); // Return as DTO
         } else {
             logger.error("User not found with ID: {}", userDTO.getId());
             throw new ResourceNotFoundException("User", "id", userDTO.getId());

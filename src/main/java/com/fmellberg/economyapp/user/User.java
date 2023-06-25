@@ -31,10 +31,10 @@ public class User {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<SavingsGoal> savingGoals;
-    @CreatedDate
+    @CreatedDate // Works on post method creations
     @Column(name = "created_at")
     private Timestamp createdAt;
-    @LastModifiedDate
+    @LastModifiedDate // Both post and put activates this
     @Column(name = "last_modified")
     private Timestamp lastModified;
 
