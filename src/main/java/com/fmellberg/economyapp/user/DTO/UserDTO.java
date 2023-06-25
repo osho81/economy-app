@@ -2,6 +2,8 @@ package com.fmellberg.economyapp.user.DTO;
 
 import java.util.Objects;
 
+// Data transfer object
+// Fields in User, but not here in UserDTO: creates/modified date, saving goals list
 public class UserDTO {
 
     private int id;

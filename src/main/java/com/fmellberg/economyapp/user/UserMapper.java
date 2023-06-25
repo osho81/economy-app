@@ -2,6 +2,8 @@ package com.fmellberg.economyapp.user;
 
 import com.fmellberg.economyapp.user.DTO.UserDTO;
 
+// Maps db entity User.java with data transfer object UserDTo
+
 public class UserMapper {
 
     public static UserDTO toUserDTO(User user) {

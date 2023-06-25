@@ -25,17 +25,18 @@ public class UserServiceImpl implements UserService {
     public UserDTO createUser(UserDTO userDTO) {
         User user = UserMapper.toEntity(userDTO);
         logger.debug("Creating user: {}", user);
-        User createdUser = userRepository.save(user);
+        User createdUser = userRepository.save(user); // Create User
         logger.info("User created: {}", createdUser);
-        return UserMapper.toUserDTO(createdUser);
+        return UserMapper.toUserDTO(createdUser); // Return UserDTO in response
     }
 
     public List<UserDTO> getAllUsers() {
         List<User> users = userRepository.findAll();
         logger.info("Total users found: {}", users.size());
 
-        List<UserDTO> userDTOs  = new ArrayList<>();
-        for(User user : users) {
+        List<UserDTO> userDTOs = new ArrayList<>();
+        // Turn each user from db, into a DTO
+        for (User user : users) {
             UserDTO userDTO = UserMapper.toUserDTO(user);
             userDTOs.add(userDTO);
         }
@@ -49,7 +50,7 @@ public class UserServiceImpl implements UserService {
             return userDTO;
         } else {
             logger.error("User not found with ID: {}", id);
-            throw new ResourceNotFoundException("User","id", id);
+            throw new ResourceNotFoundException("User", "id", id);
         }
     }
 
@@ -70,7 +71,7 @@ public class UserServiceImpl implements UserService {
             return UserMapper.toUserDTO(updatedUser);
         } else {
             logger.error("User not found with ID: {}", userDTO.getId());
-            throw new ResourceNotFoundException("User","id", userDTO.getId());
+            throw new ResourceNotFoundException("User", "id", userDTO.getId());
         }
     }
 
@@ -82,7 +83,7 @@ public class UserServiceImpl implements UserService {
             logger.info("User with ID {} deleted", id);
         } else {
             logger.error("User not found with ID: {}", id);
-            throw new ResourceNotFoundException("User","id", id);
+            throw new ResourceNotFoundException("User", "id", id);
         }
     }
 }
