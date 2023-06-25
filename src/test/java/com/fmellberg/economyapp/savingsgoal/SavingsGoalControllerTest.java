@@ -114,7 +114,7 @@ class SavingsGoalControllerTest {
         Mockito.when(savingsGoalService.updateSavingsGoal(savingsGoalDTO)).thenReturn(updatedSavingsGoal);
 
         // Perform the request to the SavingsGoalController
-        ResponseEntity<SavingsGoalDTO> response = savingsGoalController.updateSavingsGoal(savingsGoalId, savingsGoalDTO);
+        ResponseEntity<SavingsGoalDTO> response = savingsGoalController.updateSavingsGoal(savingsGoalDTO); // Removed redundant id arg (for removed path var)
 
         // Verify the SavingsGoalService method was called
         Mockito.verify(savingsGoalService, Mockito.times(1)).updateSavingsGoal(savingsGoalDTO);
