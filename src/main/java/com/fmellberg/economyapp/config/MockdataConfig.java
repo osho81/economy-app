@@ -32,7 +32,9 @@ public class MockdataConfig {
                 tempUser.setCreatedAt(Timestamp.valueOf(LocalDateTime.now().minusDays(days).minusHours(hours)));
                 // Save same user, i.e. update, just adding the creation date (& modification date)
                 userRepository.save(tempUser);
-                days++; // Next round, fictive time is created a day further away
+
+                // Next round, fictive time is created a day further away & 2 hours later
+                days++;
                 hours -= 2;
             }
         };
