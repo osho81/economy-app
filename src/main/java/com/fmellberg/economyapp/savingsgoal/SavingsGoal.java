@@ -130,7 +130,7 @@ public class SavingsGoal {
                 ", targetAmountOfCash=" + targetAmountOfCash +
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +
-//                ", user=" + user +
+//                ", user=" + user + // Not working on mock data (missing fields)
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + lastModified +
                 '}';
