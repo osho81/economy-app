@@ -34,7 +34,7 @@ public class SavingsGoal {
     @Column(name = "end_date", nullable = false)
     private LocalDate endDate;
 
-    @ManyToOne
+    @ManyToOne // Many (different) savings-goal can have one user (each)
     @JoinColumn(name = "userid", nullable = false)
     private User user;
 
