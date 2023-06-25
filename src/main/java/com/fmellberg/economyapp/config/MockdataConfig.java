@@ -37,6 +37,10 @@ public class MockdataConfig {
                 days++;
                 hours -= 2;
             }
+
+
+            // Eventually move all creation of mock data here
+            // if so, use data.sql as an additional mock data, when needed
         };
     }
 
