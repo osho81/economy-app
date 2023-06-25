@@ -2,6 +2,7 @@ package com.fmellberg.economyapp.config;
 
 // Modify/complete the mock data that are created by data.sql
 
+import com.fmellberg.economyapp.savingsgoal.*;
 import com.fmellberg.economyapp.user.DTO.UserDTO;
 import com.fmellberg.economyapp.user.User;
 import com.fmellberg.economyapp.user.UserMapper;
@@ -15,11 +16,14 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
 
+// Update mockdata, to complete (missing fields in) data.sql
+
 @Configuration
 public class MockdataConfig {
 
     @Bean
-    CommandLineRunner commandLineRunner(UserRepository userRepository, UserService userService) {
+    CommandLineRunner commandLineRunner(UserRepository userRepository, UserService userService,
+                                        SavingsGoalRepository savingsGoalRepository, SavingsGoalService savingsGoalService) {
         return args -> {
             List<UserDTO> mockUsers = userService.getAllUsers();
 
@@ -38,9 +42,15 @@ public class MockdataConfig {
                 hours -= 2;
             }
 
+            // Same update for savings-goals mockdata as for users mockdata
+            List<SavingsGoalDTO> mockSavingsGoals = savingsGoalService.getAllSavingsGoals();
+            for (SavingsGoalDTO sgDto: mockSavingsGoals) {
+                SavingsGoal tempSg = savingsGoalRepository.findById(sgDto.getId()).get();
+                tempSg.setCreatedAt(Timestamp.valueOf(LocalDateTime.now().minusDays(1)));
+                savingsGoalRepository.save(tempSg);
+            }
 
-            // Eventually move all creation of mock data here
-            // if so, use data.sql as an additional mock data, when needed
+
         };
     }
 
