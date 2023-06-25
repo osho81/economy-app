@@ -23,15 +23,17 @@ public class MockdataConfig {
         return args -> {
             List<UserDTO> mockUsers = userService.getAllUsers();
 
-            int count = 1; // Used to manipulate fictive time in timestamp/localDateTime hereunder
+            int days = 1; // Used to manipulate fictive time in timestamp/localDateTime hereunder
+            int hours = 10;
 
             for (UserDTO userDto : mockUsers) {
                 User tempUser = userRepository.findById(userDto.getId()).get();
                 // Add a fictive creation date
-                tempUser.setCreatedAt(Timestamp.valueOf(LocalDateTime.now().minusDays(count).minusHours(count)));
+                tempUser.setCreatedAt(Timestamp.valueOf(LocalDateTime.now().minusDays(days).minusHours(hours)));
                 // Save same user, i.e. update, just adding the creation date (& modification date)
                 userRepository.save(tempUser);
-                count++; // Next round, fictive time is created a day further away
+                days++; // Next round, fictive time is created a day further away
+                hours -= 2;
             }
         };
     }
