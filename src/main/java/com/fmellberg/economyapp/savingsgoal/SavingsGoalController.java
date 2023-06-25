@@ -42,10 +42,10 @@ public class SavingsGoalController {
         return ResponseEntity.ok(savingsGoalDTO);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<SavingsGoalDTO> updateSavingsGoal(@PathVariable int id, @RequestBody SavingsGoalDTO savingsGoalDTO) {
-        logger.info("Received request to update savings goal with ID: {}", id);
-        savingsGoalDTO.setId(id);
+    @PutMapping() // Removed redundant path var {id} 230625
+    public ResponseEntity<SavingsGoalDTO> updateSavingsGoal(@RequestBody SavingsGoalDTO savingsGoalDTO) {
+        logger.info("Received request to update savings goal with ID: {}", savingsGoalDTO.getId());
+        savingsGoalDTO.setId(savingsGoalDTO.getId());
         SavingsGoalDTO updatedSavingsGoal = savingsGoalService.updateSavingsGoal(savingsGoalDTO);
         return ResponseEntity.ok(updatedSavingsGoal);
     }
