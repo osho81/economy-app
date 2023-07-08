@@ -1,5 +1,6 @@
 package com.fmellberg.economyapp.user;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fmellberg.economyapp.savingsgoal.SavingsGoal;
 import jakarta.persistence.*;
 import org.springframework.data.annotation.CreatedDate;
@@ -31,6 +32,7 @@ public class User {
 
     // One uUser can have many savings-goal
     // If user deleted, related savings-goal are deleted too
+    @JsonManagedReference // Avoid infinite recursion
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<SavingsGoal> savingGoals;
     @CreatedDate // Works on post method creations
