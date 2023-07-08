@@ -1,5 +1,9 @@
 package com.fmellberg.economyapp.user.DTO;
 
+import com.fmellberg.economyapp.savingsgoal.SavingsGoal;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 // Data transfer object
@@ -12,6 +16,9 @@ public class UserDTO {
     private String email;
     private String userName;
     private String password;
+
+    // Add savingsGoals (manyToOne) 230708
+    private List<SavingsGoal> savingGoals;
 
     public UserDTO() {
     }
@@ -31,6 +38,19 @@ public class UserDTO {
         this.email = email;
         this.userName = userName;
         this.password = password;
+    }
+
+    // Add savingsGoals to constructor 230708
+    public UserDTO(int id, String firstName, String lastName, String email, String userName, String password, ArrayList<SavingsGoal> savingGoals) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.userName = userName;
+        this.password = password;
+
+        // Add savingsGoals (manyToOne) 230708
+        this.savingGoals = savingGoals;
     }
 
     public int getId() {
@@ -79,6 +99,14 @@ public class UserDTO {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public List<SavingsGoal> getSavingGoals() {
+        return savingGoals;
+    }
+
+    public void setSavingGoals(List<SavingsGoal> savingGoals) {
+        this.savingGoals = savingGoals;
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.fmellberg.economyapp.savingsgoal;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fmellberg.economyapp.user.User;
 import jakarta.persistence.*;
 import org.springframework.data.annotation.CreatedDate;
@@ -34,6 +35,7 @@ public class SavingsGoal {
     @Column(name = "end_date", nullable = false)
     private LocalDate endDate;
 
+    @JsonBackReference // Avoid infinite recursion
     @ManyToOne // Many (different) savings-goal can have one user (each)
     @JoinColumn(name = "userid", nullable = false)
     private User user;

@@ -12,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/users")
+@CrossOrigin(origins = "http://localhost:5173") // Allow VUE frontend
 public class UserController {
 
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
@@ -34,7 +35,7 @@ public class UserController {
     public ResponseEntity<List<UserDTO>> getAllUsers() {
         logger.info("Received a request to retrieve all users");
         List<UserDTO> users = userService.getAllUsers();
-        return ResponseEntity.ok(users);
+        return ResponseEntity.ok(users); // Returns userDTOs
     }
 
     @GetMapping("/{id}")

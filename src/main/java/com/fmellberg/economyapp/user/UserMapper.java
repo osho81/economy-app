@@ -14,6 +14,10 @@ public class UserMapper {
         userDTO.setEmail(user.getEmail());
         userDTO.setUserName(user.getUserName());
         userDTO.setPassword(user.getPassword());
+
+        // Add savingsGoals (manyToOne) 230708
+        userDTO.setSavingGoals(user.getSavingGoals());
+
         return userDTO;
     }
 
