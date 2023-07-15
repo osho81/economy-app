@@ -45,6 +45,13 @@ public class UserController {
         return ResponseEntity.ok(user);
     }
 
+    @GetMapping("/username/{userName}") // Added 20230715
+    public ResponseEntity<UserDTO> getUserById(@PathVariable String userName) {
+        logger.info("Received a request to retrieve user by username: {}", userName);
+        UserDTO user = userService.getUserByUserName(userName);
+        return ResponseEntity.ok(user);
+    }
+
     @PutMapping() // Removed redundant path var {id} 230625
     public ResponseEntity<UserDTO> updateUser(@RequestBody UserDTO userDTO) { // Uses req body
         logger.info("Received a request to update user with ID: {}", userDTO.getId());
