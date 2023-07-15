@@ -54,6 +54,22 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    @Override // Added 20230715
+    public UserDTO getUserByUserName(String userName) {
+        Optional<User> user = userRepository.findByUserName(userName);
+        if (user.isPresent()) {
+            UserDTO userDTO = UserMapper.toUserDTO(user.get());
+            return userDTO;
+        } else {
+            logger.error("User not found with username: {}", userName);
+
+            // Must return/throw something if not found
+            // Temporary solution: return 0 as id
+            // since strings (username) not accepted yet in ResourceNotFoundException class
+            throw new ResourceNotFoundException("User", "id", 0);
+        }
+    }
+
     public UserDTO updateUser(UserDTO userDTO) {
         // Get User, and update by passed in UserDTO fields
         Optional<User> existingUserOptional = userRepository.findById(userDTO.getId());
@@ -87,4 +103,5 @@ public class UserServiceImpl implements UserService {
             throw new ResourceNotFoundException("User", "id", id);
         }
     }
+
 }
