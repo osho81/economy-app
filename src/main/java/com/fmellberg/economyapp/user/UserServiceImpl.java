@@ -73,8 +73,14 @@ public class UserServiceImpl implements UserService {
     public UserDTO updateUser(UserDTO userDTO) {
         // Get User, and update by passed in UserDTO fields
         Optional<User> existingUserOptional = userRepository.findById(userDTO.getId());
-        if (existingUserOptional.isPresent()) {
-            User existingUser = existingUserOptional.get();
+        Optional<User> existingUserOptionalByEmail = userRepository.findByUserName(userDTO.getUserName());
+
+        if (!existingUserOptional.isPresent() && !existingUserOptionalByEmail.isPresent()) {
+            logger.error("User not found with ID: {}", userDTO.getId());
+            throw new ResourceNotFoundException("User", "id", userDTO.getId());
+
+        } else {
+            User existingUser = existingUserOptional.isPresent() ? existingUserOptional.get() : existingUserOptionalByEmail.get();
 
             existingUser.setFirstName(userDTO.getFirstName());
             existingUser.setLastName(userDTO.getLastName());
@@ -86,9 +92,6 @@ public class UserServiceImpl implements UserService {
             logger.info("User updated: {}", updatedUser);
 
             return UserMapper.toUserDTO(updatedUser); // Return as DTO
-        } else {
-            logger.error("User not found with ID: {}", userDTO.getId());
-            throw new ResourceNotFoundException("User", "id", userDTO.getId());
         }
     }
 
