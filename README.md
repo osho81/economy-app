@@ -27,5 +27,5 @@
 - http://localhost:8080/swagger-ui/index.html
 - (port might need to be changed)
 
-## Database-related info
-
+## H2-db
+- H2 console: http://localhost:8080/h2console/
