@@ -11,6 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/savings-goals")
+@CrossOrigin(origins = "http://localhost:5173") // Allow VUE frontend
 public class SavingsGoalController {
 
     private static final Logger logger = LoggerFactory.getLogger(SavingsGoalController.class);
