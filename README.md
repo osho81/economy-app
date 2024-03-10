@@ -18,4 +18,14 @@
   - If Intellij has not recognized this springboot app (after maven build)
       - select JDK
       - set main class: EconomyAppBackendApplication
-      - 
+      - add eventual db configs or other environment variables
+  - If intellij has recognized the springboot app
+    - add eventual db configs or other environment variables
+  - Click play button and the springboot should start
+
+## Swagger
+- http://localhost:8080/swagger-ui/index.html
+- (port might need to be changed)
+
+## Database-related info
+
