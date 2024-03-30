@@ -33,6 +33,7 @@ class UserControllerTest {
     @Test
     public void createUser_ShouldReturnCreatedUserAndResponseCREATED() {
         // Prepare test data
+        // TODO: move these to separate testUtil file
         int id = 1;
         String firstName = "John";
         String lastName = "Doe";
