@@ -43,9 +43,17 @@ class UserControllerTest {
         // Create UserDTO with constructor
         UserDTO userDTO = new UserDTO(id, firstName, lastName, email, userName, password);
 
-        // Mock the UserService behavior
         UserDTO createdUserDTO = new UserDTO(id, firstName, lastName, email, userName, password);
+
+        // Mock the UserService behavior
         Mockito.when(userService.createUser(userDTO)).thenReturn(createdUserDTO);
+
+//        UserDTO capturedUserDTO = (UserDTO) Mockito.when(userService.createUser(userDTO)).thenAnswer(invocation -> {
+//            // Capture the argument passed to the createUser method
+//            UserDTO capturedUserDTOtemp = invocation.getArgument(0);
+//            // Return the captured userDto
+//            return capturedUserDTOtemp;
+//        });
 
         // Perform the request to the UserController
         ResponseEntity<UserDTO> response = userController.createUser(userDTO);
@@ -56,8 +64,8 @@ class UserControllerTest {
         // Verify the response status code and body
         assertEquals(HttpStatus.CREATED, response.getStatusCode());
         assertEquals(createdUserDTO, response.getBody());
+//        assertEquals(capturedUserDTO, response.getBody());
     }
-
 
 
     @Test
