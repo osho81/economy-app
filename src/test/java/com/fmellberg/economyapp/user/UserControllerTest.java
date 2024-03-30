@@ -33,7 +33,6 @@ class UserControllerTest {
     @Test
     public void createUser_ShouldReturnCreatedUserAndResponseCREATED() {
         // Prepare test data
-        // TODO: move these to separate testUtil file
         int id = 1;
         String firstName = "John";
         String lastName = "Doe";
@@ -46,7 +45,11 @@ class UserControllerTest {
 
         // Mock the UserService behavior
         UserDTO createdUserDTO = new UserDTO(id, firstName, lastName, email, userName, password);
-        Mockito.when(userService.createUser(userDTO)).thenReturn(createdUserDTO);
+//        Mockito.when(userService.createUser(userDTO)).thenReturn(createdUserDTO);
+
+        Mockito.when(userService.createUser(userDTO)).thenAnswer(invocation -> {
+            // Capture the argument passed to the createUser method
+            UserDTO capturedUserDTO = invocation.getArgument(0);
 
         // Perform the request to the UserController
         ResponseEntity<UserDTO> response = userController.createUser(userDTO);
