@@ -50,6 +50,9 @@ class UserControllerTest {
         Mockito.when(userService.createUser(userDTO)).thenAnswer(invocation -> {
             // Capture the argument passed to the createUser method
             UserDTO capturedUserDTO = invocation.getArgument(0);
+            // Return the captured userDto
+            return capturedUserDTO;
+        });
 
         // Perform the request to the UserController
         ResponseEntity<UserDTO> response = userController.createUser(userDTO);
