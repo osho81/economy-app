@@ -66,7 +66,6 @@ class UserControllerTest {
     }
 
 
-
     @Test
     void getAllUsers_ShouldReturnListOfUsersAndResponseOK() {
         // Prepare test data
