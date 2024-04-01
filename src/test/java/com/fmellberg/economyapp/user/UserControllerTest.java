@@ -8,6 +8,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -18,6 +20,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 class UserControllerTest {
+
+    private static final Logger logger = LoggerFactory.getLogger(UserControllerTest.class);
 
     @Mock
     private UserService userService;
@@ -43,19 +47,10 @@ class UserControllerTest {
         // Create UserDTO with constructor
         UserDTO userDTO = new UserDTO(id, firstName, lastName, email, userName, password);
 
-        // Create UserDTO with service method
-//        UserDTO userDTOfromService = userService.createUser(userDTO); // redundant
-
-        // Mock the UserService behavior
+        //-- Mock the UserService behavior ("stubbing") --//
         UserDTO createdUserDTO = new UserDTO(id, firstName, lastName, email, userName, password);
+        // we return predefined object/value, since we are testing the controller (not the service)
         Mockito.when(userService.createUser(userDTO)).thenReturn(createdUserDTO);
-
-//        UserDTO capturedUserDTO = (UserDTO) Mockito.when(userService.createUser(userDTO)).thenAnswer(invocation -> {
-//            // Capture the argument passed to the createUser method
-//            UserDTO capturedUserDTOtemp = invocation.getArgument(0);
-//            // Return the captured userDto
-//            return capturedUserDTOtemp;
-//        });
 
         // Perform the request to the UserController
         ResponseEntity<UserDTO> response = userController.createUser(userDTO);
@@ -66,10 +61,7 @@ class UserControllerTest {
         // Verify the response status code and body
         assertEquals(HttpStatus.CREATED, response.getStatusCode());
         assertEquals(createdUserDTO, response.getBody());
-//        assertEquals(capturedUserDTO, response.getBody());
 
-        // Also compare with the service-returned userDto
-        // Redundant
     }
 
 
