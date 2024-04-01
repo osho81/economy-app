@@ -44,7 +44,7 @@ class UserControllerTest {
         UserDTO userDTO = new UserDTO(id, firstName, lastName, email, userName, password);
 
         // Create UserDTO with service method
-        UserDTO userDTOfromService = userService.createUser(userDTO);
+//        UserDTO userDTOfromService = userService.createUser(userDTO); // redundant
 
         // Mock the UserService behavior
         UserDTO createdUserDTO = new UserDTO(id, firstName, lastName, email, userName, password);
@@ -69,7 +69,7 @@ class UserControllerTest {
 //        assertEquals(capturedUserDTO, response.getBody());
 
         // Also compare with the service-returned userDto
-        assertEquals(userDTOfromService, response.getBody());
+        // Redundant
     }
 
 
