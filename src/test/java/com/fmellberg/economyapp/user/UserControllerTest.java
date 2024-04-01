@@ -1,7 +1,7 @@
 package com.fmellberg.economyapp.user;
 
 
-simport com.fmellberg.economyapp.user.DTO.UserDTO;
+import com.fmellberg.economyapp.user.DTO.UserDTO;
 import com.mysql.cj.log.Log;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -48,16 +48,17 @@ class UserControllerTest {
         // Create UserDTO with constructor
         UserDTO userDTO = new UserDTO(id, firstName, lastName, email, userName, password);
 
-        // Mock the UserService behavior
+        // Mock the UserService behavior ("stubbing")
         UserDTO createdUserDTO = new UserDTO(id, firstName, lastName, email, userName, password);
-        Mockito.when(userService.createUser(userDTO)).thenReturn(createdUserDTO);
-        Log.
+        Mockito.when(userService.createUser(userDTO)).thenReturn(userDTO);
+        logger.info("Created test-user: {}", createdUserDTO);
 
         // Perform the request to the UserController
         ResponseEntity<UserDTO> response = userController.createUser(userDTO);
 
         // Verify the UserService method was called
         Mockito.verify(userService, Mockito.times(1)).createUser(userDTO);
+        logger.info("Created test-user: {}", userDTO);
 
         // Verify the response status code and body
         assertEquals(HttpStatus.CREATED, response.getStatusCode());
