@@ -69,7 +69,7 @@ class UserControllerTest {
 //        assertEquals(capturedUserDTO, response.getBody());
 
         // Also compare with the service-returned userDto
-        assertEquals(createdUserDTO, response.getBody());
+        assertEquals(userDTOfromService, response.getBody());
     }
 
 
