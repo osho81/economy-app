@@ -43,9 +43,11 @@ class UserControllerTest {
         // Create UserDTO with constructor
         UserDTO userDTO = new UserDTO(id, firstName, lastName, email, userName, password);
 
-        UserDTO createdUserDTO = new UserDTO(id, firstName, lastName, email, userName, password);
+        // Create UserDTO with service method
+        UserDTO userDTOfromService = userService.createUser(userDTO);
 
         // Mock the UserService behavior
+        UserDTO createdUserDTO = new UserDTO(id, firstName, lastName, email, userName, password);
         Mockito.when(userService.createUser(userDTO)).thenReturn(createdUserDTO);
 
 //        UserDTO capturedUserDTO = (UserDTO) Mockito.when(userService.createUser(userDTO)).thenAnswer(invocation -> {
@@ -65,6 +67,9 @@ class UserControllerTest {
         assertEquals(HttpStatus.CREATED, response.getStatusCode());
         assertEquals(createdUserDTO, response.getBody());
 //        assertEquals(capturedUserDTO, response.getBody());
+
+        // Also compare with the service-returned userDto
+        assertEquals(createdUserDTO, response.getBody());
     }
 
 
