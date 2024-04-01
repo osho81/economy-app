@@ -1,13 +1,16 @@
 package com.fmellberg.economyapp.user;
 
 
-import com.fmellberg.economyapp.user.DTO.UserDTO;
+simport com.fmellberg.economyapp.user.DTO.UserDTO;
+import com.mysql.cj.log.Log;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -18,6 +21,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 class UserControllerTest {
+
+    private static final Logger logger = LoggerFactory.getLogger(UserControllerTest.class);
 
     @Mock
     private UserService userService;
@@ -46,6 +51,7 @@ class UserControllerTest {
         // Mock the UserService behavior
         UserDTO createdUserDTO = new UserDTO(id, firstName, lastName, email, userName, password);
         Mockito.when(userService.createUser(userDTO)).thenReturn(createdUserDTO);
+        Log.
 
         // Perform the request to the UserController
         ResponseEntity<UserDTO> response = userController.createUser(userDTO);
