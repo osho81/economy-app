@@ -164,9 +164,6 @@ public class UserServiceImplTest {
         // Verify the userRepository deleteById method was called
         Mockito.verify(userRepository, Mockito.times(1)).deleteById(userId);
 
-        Optional<User> userAfterDelete = userRepository.findById(userId);
-        System.out.println("before delete " + userBeforeDelete + "\n" + "after delete " + userAfterDelete);
-        assertEquals(userBeforeDelete, userAfterDelete);
     }
 
     @Test
