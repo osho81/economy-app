@@ -153,8 +153,6 @@ public class UserServiceImplTest {
         // Mock the userRepository behavior
         Mockito.when(userRepository.findById(userId)).thenReturn(Optional.of(existingUser));
 
-        Optional<User> userBeforeDelete = userRepository.findById(userId);
-
         // Perform the deleteUser operation
         userService.deleteUser(userId);
 
@@ -163,7 +161,6 @@ public class UserServiceImplTest {
 
         // Verify the userRepository deleteById method was called
         Mockito.verify(userRepository, Mockito.times(1)).deleteById(userId);
-
     }
 
     @Test
