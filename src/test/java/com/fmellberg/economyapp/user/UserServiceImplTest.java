@@ -176,5 +176,7 @@ public class UserServiceImplTest {
 
         // Verify the userRepository findById method was called
         Mockito.verify(userRepository, Mockito.times(1)).findById(userId);
+
+        // TODO: verify or assert mocked user list after delete equals list before delete -1
     }
 }
