@@ -153,14 +153,20 @@ public class UserServiceImplTest {
         // Mock the userRepository behavior
         Mockito.when(userRepository.findById(userId)).thenReturn(Optional.of(existingUser));
 
+        Optional<User> userBeforeDelete = userRepository.findById(userId);
+
         // Perform the deleteUser operation
         userService.deleteUser(userId);
 
         // Verify the userRepository findById method was called
-        Mockito.verify(userRepository, Mockito.times(1)).findById(userId);
+        Mockito.verify(userRepository, Mockito.times(2)).findById(userId);
 
         // Verify the userRepository deleteById method was called
         Mockito.verify(userRepository, Mockito.times(1)).deleteById(userId);
+
+        Optional<User> userAfterDelete = userRepository.findById(userId);
+        System.out.println("before delete " + userBeforeDelete + "\n" + "after delete " + userAfterDelete);
+        assertEquals(userBeforeDelete, userAfterDelete);
     }
 
     @Test
